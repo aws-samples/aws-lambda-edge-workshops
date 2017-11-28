@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>{{description}}</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<p><a href="/">Home</a></p>
+
+<p>{{message}}</p>
+
+<div class="cdl_wrap">
+  <span class="cdl_likes" id="likes">{{likes}}</span>
+  <img class="cdl_img" src="/img/alien32.png">
+</div>
+
+<p><button id="like" data-cardid="{{id}}">+1</button></p>
+
+<div class="cdi_wrap">
+  <div class="cdi_desc">{{description}}</div>
+  <img class="cdi_img" src="/card/960w/{{id}}.jpg">
+</div>
+
+<script src="/js/like.js"></script>
+
+</body>
+
+</html>
