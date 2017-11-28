@@ -13,7 +13,7 @@ The workshop will demonstrate the usage of the following AWS services:
 * **AWS Lambda@Edge**: the dynamic content generation and content customization will be driven by Lambda@Edge functions
 
 Here is how the website looks like at the beginning of the workshop:  
-https://d3c0w2j5uywzfw.cloudfront.net
+https://d3t9iu533apzb8.cloudfront.net
 
 Here is how the website will look like at the end of the workshop with all labs completed:  
 https://d3c0w2j5uywzfw.cloudfront.net
