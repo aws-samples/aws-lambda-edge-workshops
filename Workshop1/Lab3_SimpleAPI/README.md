@@ -42,7 +42,7 @@ Click `Save and Test` and configure the test event. You can use the "CloudFront 
 Specify the following request fields:
 * `"uri": "/api/like"`
 * `"querystring": "id=da8398f4"`
-* `"methosd": "POST"`
+* `"method": "POST"`
 
 ![x](./img/03-configure-test-event.png)
 
