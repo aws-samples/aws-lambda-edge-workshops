@@ -6,7 +6,7 @@ Let's check and improve our website security by configuring HTTP to HTTPs redire
 
 In modern web, many security features are implemented and enforced by web-browsers. Such the client side security features are usually enabled and configured by HTTP response headers sent by a web-server. However, web-servers may respond with some or all of the security headers missing. This lab shows how to add security headers to responses from an origin server configured for a CloudFront distribution. In our case, the origin is an S3 bucket.
 
-First we will scan our website by observatory.mozilla.org and see if it finds any security features missing. Next, we will fix potential security vulnerability by adding several security headers to all HTTP responses.
+First we will scan our website by observatory.mozilla.org and see if it finds any security features missing. Next, we will fix potential security vulnerabilities by adding several security headers to all HTTP responses.
 
 ## Steps
 
