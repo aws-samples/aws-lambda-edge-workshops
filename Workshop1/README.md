@@ -2,14 +2,14 @@
 
 ## Overview
 
-In this workshop you will learn how you can use Lambda@Edge to extend functionality of your web-application or a website.
+In this workshop you will learn how you can use [Lambda@Edge](https://docs.aws.amazon.com/lambda/latest/dg/lambda-edge.html) to extend functionality of your web-application or a website.
 
 **Backstory**: Aliens have arrived. Humanity cannot communicate with them because we do not speak a common language. However, the aliens are curious and willing to learn the language by looking at beautiful images with short text descriptions. Let's build a website to help the aliens learn our language using simple learning cards!
 
 The workshop will demonstrate the usage of the following AWS services:
 * **Amazon S3**: the website's static files will be stored in an S3 bucket
 * **Amazon DynamoDB**: the dynamic data will be stored in a DynamoDB table
-* **Amazon CloudFront**: the fast and secure content delivery will performed by a CloudFront distribution
+* **Amazon CloudFront**: the fast and secure content delivery will be performed by a CloudFront distribution
 * **AWS Lambda@Edge**: the dynamic content generation and content customization will be driven by Lambda@Edge functions
 
 Here is how the website looks like at the beginning of the workshop:  
@@ -26,7 +26,7 @@ Click the launch stack button below to kick it off, accept all default values an
 
 Region | Button
 ------------ | -------------
-us-east-1 | [![Launch stack in us-east-1](https://s3.amazonaws.com/cloudformation-examples/cloudformation-launch-stack.png)](https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/new?stackName=WsLambdaAtEdgeAlienCards&templateURL=https://s3.amazonaws.com/ws-lambda-at-edge/bootstrap/cfn-template.json)
+us-west-2 | [![Launch stack in us-west-2](https://s3.amazonaws.com/cloudformation-examples/cloudformation-launch-stack.png)](https://console.aws.amazon.com/cloudformation/home?region=us-west-2#/stacks/new?stackName=WsLambdaAtEdgeAlienCards&templateURL=https://s3.amazonaws.com/ws-lambda-at-edge/bootstrap/cfn-template.json)
 
 Need more detailed instructions? Proceed to  
 [Lab 0 - Launch the stack (steps with screenshots)](./Lab0_LaunchTheStack/README.md)
@@ -63,7 +63,29 @@ Learn how to serve content customized for the device type of a viewer.
 
 [Lab 5 - Customization](./Lab5_Customization/README.md)
 
+## Lab 6 - Dynamic Origin Selection
+
+Learn how to dynamically change origin to serve content from origin nearer to the country of the viewer.
+
+[Lab 6 - Dynamic Origin Selection](./Lab6_DynamicOriginSelection/README.md)
+
+## Lab 7 - Global Tables
+
+Learn how to access data from DynamoDB table in region nearer to the country of the viewer.
+
+[Lab 7 - Dynamic Datastore Selection](./Lab7_DynamicDatastoreSelection/README.md)
+
 ## Cleanup
 
-1. Delete all files from the S3 bucket `ws-lambda-at-edge-<unique_id>` created by CloudFormation stack for this workshop.
-1. Delete the CloudFormation stack named `WsLambdaAtEdgeAlienCards`.
+Clean your resources created for this workshop
+
+[Cleanup](./Cleanup/README.md)
+
+## More Use Cases
+Interested in exploring more use cases that Lambda@Edge supports? Check this out.
+
+* [Resizing Images with Amazon CloudFront & Lambda@Edge](https://aws.amazon.com/blogs/networking-and-content-delivery/resizing-images-with-amazon-cloudfront-lambdaedge-aws-cdn-blog/)
+
+* [Authorization@Edge – How to Use Lambda@Edge and JSON Web Tokens to Enhance Web Application Security](https://aws.amazon.com/blogs/networking-and-content-delivery/authorizationedge-how-to-use-lambdaedge-and-json-web-tokens-to-enhance-web-application-security/)
+
+* [Further reading and blogs](https://aws.amazon.com/blogs/networking-and-content-delivery/category/networking-content-delivery/lambdaedge/)

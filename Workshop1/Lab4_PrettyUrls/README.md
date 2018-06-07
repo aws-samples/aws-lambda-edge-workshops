@@ -49,28 +49,29 @@ Go to Lambda Console, select "US East (N.Virginia)" region in the top left corne
 
 In the `Basic information` window, select:
 * `Name`: `ws-lambda-at-edge-redirect`
+* `Runtime`: `Node.js 6.10` or `Node.js 8.10`
 * `Role`: `Choose an existing role`
 * `Existing role`: `ws-lambda-at-edge-basic-<UNIQUE_ID>` (this allows the function to push the logs to CloudWatch Logs)
 
-![x](./img/01-create-function.png)
+<kbd>![x](./img/01-create-function.png)</kbd>
 
 Use JavaScript code from [ws-lambda-at-edge-redirect.js](./ws-lambda-at-edge-redirect.js) as a blueprint.
 
 Take a moment to familiarize yourself with the function code and what it does.
 
-![x](./img/02-function-created.png)
+<kbd>![x](./img/02-function-created.png)</kbd>
 
 #### 1.2 Validate the function works in Lambda Console
 
-Click `Save and test` and configure the test event. You can use "CloudFront Simple Remote Call" event template. 
+Click `Save` and then `Test` and configure the test event. You can use `CloudFront Simple Remote Call` event template.
 
 Specify `/r/tree` as the value of the `uri` field.
 
-![x](./img/03-configure-test-object.png)
+<kbd>![x](./img/03-configure-test-object.png)</kbd>
 
 Click `Test` and validate the function has returned `302` status code with the location header value equal to `/card/da8398f4`.
 
-![x](./img/04-test-invoke-successful.png)
+<kbd>![x](./img/04-test-invoke-successful.png)</kbd>
 
 #### 1.3 Publish a function version
 
@@ -85,7 +86,7 @@ Under the `Behaviors` tab, click `Create Behavior`. Choose the following setting
 * `Viewer Protocol Policy`: `Redirect HTTP to HTTPS`
 * `Lambda Function Associations`: `Origin Request` = `<lambda version ARN from the previous step>`
   
-![x](./img/05-create-cache-behavior.png)
+<kbd>![x](./img/05-create-cache-behavior.png)</kbd>
 
 Wait for ~30-60 seconds for the change to propagate and for the Lambda function to get globally replicated.
 
@@ -142,17 +143,17 @@ This can be achieved with the code snippet below. Paste it at the beginning of t
     }
 ```
 
-![x](./img/11-modify-function.png)
+<kbd>![x](./img/11-modify-function.png)</kbd>
 
 #### 2.2 Validate the function works in Lambda Console
 
 Update the test event - click `Configure test events` inside the dropdown list of test events next to the `Test` button.
 
-![x](./img/12-configure-test-event.png)
+<kbd>![x](./img/12-configure-test-event.png)</kbd>
 
 Change the `uri` field value to `/tree`.
 
-![x](./img/13-configure-test-event.png)
+<kbd>![x](./img/13-configure-test-event.png)</kbd>
 
 #### 2.3 Publish a function version
 
