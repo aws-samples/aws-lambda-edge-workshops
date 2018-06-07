@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Lambda@Edge Workshop</title>
+</head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<body>
+
+<p>Let's calculate average time to load home page by sending 10 requests.</p>
+
+<p id="time_results"></p>
+
+<script>
+
+$(document).ready(function(){
+  var timeTaken = [];
+  var totalTime = 0;
+
+  /* Disable browser caching */
+  $.ajaxSetup({ cache: false });
+
+  function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  async function printTimeTaken() {
+    for (var i = 0; i < 10; i++) {
+      var startTime= new Date().getTime();
+      var sleepTime = i === 0 ? 4500 : 2200;
+
+      $.get("/index.html").done(function(){
+          timeTaken[i] = (new Date().getTime() - startTime);
+          totalTime += timeTaken[i];
+          $("#time_results").append("Request No. <b>" + (i+1) +"</b>, TimeTaken: <b>" + timeTaken[i] + " ms</b><br>");
+      });
+
+      await sleep(sleepTime);
+    }
+    $("#time_results").append("================================<br>Average Time To Load Page: <b>" + totalTime/timeTaken.length + " ms</b><br>================================<br>");
+  }
+
+  printTimeTaken();
+});
+
+</script>
+
+</body>
+</html>
