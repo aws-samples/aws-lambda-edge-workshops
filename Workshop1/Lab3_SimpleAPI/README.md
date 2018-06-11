@@ -77,6 +77,7 @@ You can validate it with either a command line:
 
 ```
 curl -X POST https://d123.cloudfront.net/api/like?id=da8398f4
+
 {
   "Likes": 4,
   "CardId": "da8398f4",

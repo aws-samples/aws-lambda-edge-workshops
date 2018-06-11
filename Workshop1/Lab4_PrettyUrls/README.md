@@ -125,7 +125,7 @@ internally within Lambda@Edge so that it's not even visible in the viewer web br
 
 #### 2.1 Create/modify the Lambda function
 
-Assuming Lab 2 has been completed, we already have Lambda@Edge function triggered for the origin-request event in the default cache behavior. We now need to rewrite the URI at the begging of it before any further processing.
+Assuming Lab 2 has been completed, we already have Lambda@Edge function triggered for the origin-request event in the default cache behavior. We now need to rewrite the URI at the beginning of it before any further processing.
 
 This can be achieved with the code snippet below. Paste it at the beginning of the handler defined in function `ws-lambda-at-edge-generate-card-page` created in Lab 2.
 

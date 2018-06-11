@@ -19,7 +19,7 @@ can be rewritten to
 * GET /css/style.css (for desktop viewers)
 * GET /css/mobile/style.css (for mobile viewers)
 
-**NOTE:** Here and below throughout the workshop, replace the example domain name `d123.cloudfront.net` with the unique name of your distribution.
+**NOTE:** Here and below throughout the workshop, replace the example domain name `d123.cloudfront.net` with the unique domain name of your distribution.
 
 ## Steps
 

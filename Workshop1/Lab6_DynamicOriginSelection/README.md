@@ -5,7 +5,7 @@ In this lab, you will learn how to create a Lambda function that changes S3 orig
 
 You can front multiple backend origin application services with Amazon CloudFront and use Lambda@Edge to route requests to the appropriate origin dynamically, based on the attributes of the request. For example, you can have multiple microservices based backend origins that your Lambda@Edge functions can dynamically route to by inspecting request attributes like query strings, headers or cookies. Or you can route your viewers to the most optimal origin for latency or data locality if it is meant to run geographically distributed applications in different AWS regions. Content-based dynamic origin selection also lets you simplify your origin infrastructure by moving request routing logic from a fleet of reverse proxy servers that you would have had to manage to serverless Lambda@Edge functions.
 
-**NOTE:** Here and below throughout the workshop, replace the example domain name `d123.cloudfront.net` with the unique name of your distribution.
+**NOTE:** Here and below throughout the workshop, replace the example domain name `d123.cloudfront.net` with the unique domain name of your distribution.
 
 Currently the images served by your CloudFront distribution are read from an S3 bucket located in "EU (Frankfurt)" region. 
 
