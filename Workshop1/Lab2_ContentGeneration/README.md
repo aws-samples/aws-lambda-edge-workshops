@@ -9,7 +9,7 @@ If you navigate your web browser to the domain name of the CloudFront distributi
 The home page of the CloudFront distribution displays a static HTML page with a list of images:  
 https://d123.cloudfront.net
 
-**NOTE:** Here and below throughout the workshop, replace the example domain name `d123.cloudfront.net` with the unique name of your distribution.
+**NOTE:** Here and below throughout the workshop, replace the example domain name `d123.cloudfront.net` with the unique domain name of your distribution.
 
 If you click on a particular image, you will be forwarded to a jpeg image:  
 https://d123.cloudfront.net/card/960w/da8398f4.jpg

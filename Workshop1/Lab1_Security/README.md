@@ -24,7 +24,7 @@ First we will scan our website by observatory.mozilla.org and see if it finds an
 
 Go to https://observatory.mozilla.org/ and scan the CloudFront distribution domain name created for you by the CloudFormation stack, `d123.cloudfront.net`.
 
-**NOTE**: Here and below throughout the workshop, replace the example domain name `d123.cloudfront.net` with the unique name of your CloudFront distribution.
+**NOTE**: Here and below throughout the workshop, replace the example domain name `d123.cloudfront.net` with the unique domain name of your CloudFront distribution.
 
 The result of the scan will be unsatisfactory:
 

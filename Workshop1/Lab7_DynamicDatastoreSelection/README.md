@@ -4,7 +4,7 @@ In previous lab, we saw how Lambda@Edge can be used to change origin to send req
 
 [Amazon DynamoDB Global Tables](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GlobalTables.html) provide a fully managed, multi-region, and multi-master database that provides fast, local, read and write performance for massively scaled, global applications. Global Tables replicates your Amazon DynamoDB tables automatically across your choice of AWS regions. 
 
-**NOTE:** Here and below throughout the workshop, replace the example domain name `d123.cloudfront.net` with the unique name of your distribution.
+**NOTE:** Here and below throughout the workshop, replace the example domain name `d123.cloudfront.net` with the unique domain name of your distribution.
 
 As part of CloudFormation stack creation, DynamoDB Global Tables were created in "EU (Frankfurt)" and "US West (Oregon)" regions. Currently, homepage card details are being read from DynamoDB table in "EU (Frankfurt)" region.
 
