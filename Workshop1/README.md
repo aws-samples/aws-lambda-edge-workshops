@@ -20,7 +20,7 @@ https://d3c0w2j5uywzfw.cloudfront.net
 
 ## Lab 0 - Launch the Stack
 
-To start the workshop, launch the CloudFormation stack to bootstrap the resources in the us-east-1 (N.Virginia) region.
+To start the workshop, launch the CloudFormation stack to bootstrap the resources in the us-west-2 (Oregon) region.
 
 Click the launch stack button below to kick it off, accept all default values and wait for CloudFormation to complete the creation of the stack.
 

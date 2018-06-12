@@ -4,7 +4,7 @@ Security always comes first.
 
 Let's check and improve our website security by configuring HTTP to HTTPs redirect and adding a number of standard security headers to enforce HTTPS connection is always used and prevent XSS.
 
-In modern web, many security features are implemented and enforced by web-browsers. Such the client side security features are usually enabled and configured by HTTP response headers sent by a web-server. However, web-servers may respond with some or all of the security headers missing. This lab shows how to add security headers to responses from an origin server configured for a CloudFront distribution. In our case, the origin is an S3 bucket.
+In modern web, many security features are implemented and enforced by web-browsers. Such client side security features are usually enabled and configured by HTTP response headers sent by a web-server. However, web-servers may respond with some or all of the security headers missing. This lab shows how to add security headers to responses from an origin server configured for a CloudFront distribution. In our case, the origin is an S3 bucket.
 
 First we will scan our website by observatory.mozilla.org and see if it finds any security features missing. Next, we will fix potential security vulnerabilities by adding several security headers to all HTTP responses.
 
@@ -17,8 +17,9 @@ First we will scan our website by observatory.mozilla.org and see if it finds an
 [5. Create the trigger](#5-create-the-trigger)  
 [6. Configure HTTP to HTTPs redirect](#6-configure-http-to-https-redirect)  
 [7. Wait for the change to propagate](#7-wait-for-the-change-to-propagate)  
-[8. Validate the security headers are now seen in the HTTP responses](#9-validate-the-security-headers-are-now-seen-in-the-http-responses)  
-[9. Rescan the website for security](#10-rescan-the-website-for-security)  
+[8. Invalidate CloudFront cache](#8-invalidate-cloudfront-cache)   
+[9. Validate the security headers are now seen in the HTTP responses](#9-validate-the-security-headers-are-now-seen-in-the-http-responses)  
+[10. Rescan the website for security](#10-rescan-the-website-for-security)  
 
 ### 1. Scan the website for security vulnerabilities
 
@@ -115,7 +116,13 @@ Open CloudFront Console and find the distribution created for this workshop. Nav
 
 After any modification of a CloudFront distribution, the change propagates globally to all CloudFront edge locations. The propagation status is indicated as `In Progress` and `Deployed` when it's complete. Usually ~30-60seconds is enough for the change to take effect, even though the status may be still `In Progress`. To be 100% certain though you can wait until the change is fully deployed, but it's not needed for the purpose of the workshop.
 
-### 8. Validate the security headers are now seen in the HTTP responses
+### 8. Invalidate CloudFront cache
+
+In order to purge any objects that may have been cached without the security headers, submit a wildcard invalidation '/*'.
+
+<kbd>![x](./img/10-invalidate.png)</kbd>
+
+### 9. Validate the security headers are now seen in the HTTP responses
 
 You can validate that the security headers are now being added to all responses to your CloudFront distribution. You can use browser developer tools or a command line. This step can be skipped.
 
@@ -131,7 +138,7 @@ X-XSS-Protection: 1; mode=block
 ... <more headers> ...
 ```
 
-### 9. Rescan the website for security
+### 10. Rescan the website for security
 
 Rescan the distribution domain name with https://observatory.mozilla.org/ similar to step 1.
 

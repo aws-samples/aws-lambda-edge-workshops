@@ -38,6 +38,8 @@ Click "I acknowledge that AWS CloudFormation might create IAM resources with cus
 
 Click "Create".
 
+You might need to click Refresh button on top right to see that stack creation status is CREATE_IN_PROGRESS.
+
 <kbd>![x](./img/create-stack-4.png)</kbd>
 
 #### 2 Wait for CloudFormation to create the stack
