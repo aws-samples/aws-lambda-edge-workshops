@@ -15,7 +15,7 @@ POST /api/like?id=<card_id>
 [2. Validate the function works in Lambda Console](#2-validate-the-function-works-in-lambda-console)  
 [3. Publish a function version](#3-publish-a-function-version)  
 [4. Create cache behavior for the API URI](#4-create-cache-behavior-for-the-api-uri)  
-[5. The API works now!](#6-the-api-works-now)  
+[5. The API works now!](#5-the-api-works-now)  
 
 ### 1. Create a Lambda function
 
