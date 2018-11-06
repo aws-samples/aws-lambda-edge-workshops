@@ -12,12 +12,6 @@ The workshop will demonstrate the usage of the following AWS services:
 * **Amazon CloudFront**: the fast and secure content delivery will be performed by a CloudFront distribution
 * **AWS Lambda@Edge**: the dynamic content generation and content customization will be driven by Lambda@Edge functions
 
-Here is how the website looks like at the beginning of the workshop:  
-https://d3t9iu533apzb8.cloudfront.net
-
-Here is how the website will look like at the end of the workshop with all labs completed:  
-https://d3c0w2j5uywzfw.cloudfront.net
-
 ## Lab 0 - Launch the Stack
 
 To start the workshop, launch the CloudFormation stack to bootstrap the resources in the us-west-2 (Oregon) region.
