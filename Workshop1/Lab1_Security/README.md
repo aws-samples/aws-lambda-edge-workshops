@@ -9,10 +9,10 @@ In this lab, we will first scan our website to its security can be improved. We 
 ## Steps
 
 [1. Scan the website for security vulnerabilities](#1-scan-the-website-for-security-vulnerabilities)  
-[2. Create a Lambda function](#2-create-a-lambda-function)  
-[3. Validate the function works in Lambda Console](#3-validate-the-function-works-in-lambda-console)  
-[4. Deploy to Lambda@Edge](#4-deploy-to-lambdaedge)  
-[5. Configure HTTP to HTTPs redirect](#5-configure-http-to-https-redirect)  
+[2. Configure HTTP to HTTPs redirect](#2-configure-http-to-https-redirect)  
+[3. Create a Lambda function](#4-create-a-lambda-function)  
+[4. Validate the function works in Lambda Console](#4-validate-the-function-works-in-lambda-console)  
+[5. Deploy to Lambda@Edge](#5-deploy-to-lambdaedge)  
 [6. Wait for the change to propagate](#6-wait-for-the-change-to-propagate)  
 [7. Invalidate CloudFront cache](#7-invalidate-cloudfront-cache)   
 [8. Validate the security headers are now seen in the HTTP responses](#8-validate-the-security-headers-are-now-seen-in-the-http-responses)  
@@ -28,7 +28,25 @@ The result of the scan will be unsatisfactory:
 
 <kbd>![x](./img/02-scan-summary-bad.png)</kbd>
 
-### 2. Create a Lambda function
+### 2. Configure HTTP to HTTPs redirect
+
+It is a best practive redirect HTTP traffic to the HTTPS URLs with the same URI location. This can be easily enabled in your CloudFront distribution.
+
+In [AWS CloudFront Console](https://console.aws.amazon.com/cloudfront/home?region=us-east-1#), select the distribution created for this workshop. Navigate to the `Behaviors` tab.
+
+<details><summary>Show/hide the screenshot</summary>
+  
+<kbd>![x](./img/12-edit-cache-behavior-1.png)</kbd>
+</details><br/>
+
+Select the default cache behavior and click `Edit`. Set `Viewer Protocol Policy` to `Redirect HTTP to HTTPs`.
+
+<details><summary>Show/hide the screenshot</summary>
+  
+<kbd>![x](./img/12-edit-cache-behavior-2.png)</kbd>
+</details><br/>
+
+### 3. Create a Lambda function
 
 Create a Lambda function that would add the security headers to all responses from the origin in the CloudFront distribution.
 
@@ -57,7 +75,7 @@ Use JavaScript code from [ws-lambda-at-edge-add-security-headers.js](./ws-lambda
 
 Click `Save`.
 
-### 3. Validate the function works in Lambda Console
+### 4. Validate the function works in Lambda Console
 
 When the function is created and is ready to be associated with a CloudFront distribution, it's highly recommended to first test it to make sure it executes successfully and produces the expected outcome. This can be done using a test invoke in Lambda Console. Click `Test`.
 
@@ -76,7 +94,7 @@ Validate that the security headers are now present in the the execution result o
 <kbd>![x](./img/07-execution-succeeded.png)</kbd>
 </details>
 
-### 4. Deploy to Lambda@Edge
+### 5. Deploy to Lambda@Edge
 
 Deploying your function to Lambda@Edge implies two steps: creating a function version, and associating the function version with your CloudFront distribution by selecting an applicable Cache Behavior and an event trigger type (viewer request, viewer response, origin request or origin response).
 
@@ -110,26 +128,6 @@ After that, you will see the message the trigger has been successfully created.
   
 <kbd>![x](./img/10-tigger-created.png)</kbd>
 </details>
-
-### 5. Configure HTTP to HTTPs redirect
-
-Besides the security headers that we now add to all HTTP responses, it is also recommended to redirect HTTP traffic to the HTTPS URLs with the same URI location. This can be easily enabled in the CloudFront Console.
-
-Open [AWS CloudFront Console](https://console.aws.amazon.com/cloudfront/home?region=us-east-1#) and find the distribution created for this workshop. Navigate to the `Behaviors` tab.
-
-<details><summary>Show/hide the screenshot</summary>
-  
-<kbd>![x](./img/12-edit-cache-behavior-1.png)</kbd>
-</details><br/>
-
-Select the default cache behavior and click `Edit`. Set `Viewer Protocol Policy` to `Redirect HTTP to HTTPs`.
-
-<details><summary>Show/hide the screenshot</summary>
-  
-<kbd>![x](./img/12-edit-cache-behavior-2.png)</kbd>
-</details><br/>
-
-You can also see the Lambda function ARN here configured for `Origin Response` event type in the previous step. No action needed. This is just another way to configure the trigger association in CloudFront Console.
 
 ### 6. Wait for the change to propagate
 
