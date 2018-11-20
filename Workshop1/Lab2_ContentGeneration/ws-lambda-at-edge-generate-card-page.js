@@ -5,7 +5,7 @@ const AWS = require('aws-sdk');
 const ddb = new AWS.DynamoDB.DocumentClient({apiVersion: '2012-10-08', region: 'us-east-1'});
 
 // Copy DynamoDB table name here, for example, 'AlienCards-1201c610'
-const ddbTableName = FIXME;
+const ddbTableName = 'FIXME';
 
 // The generated page contains some dynamic data, so we don't want
 // it to stay in cache for long
