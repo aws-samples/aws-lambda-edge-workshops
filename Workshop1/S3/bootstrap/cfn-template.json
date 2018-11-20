@@ -1,45 +1,20 @@
 {
   "AWSTemplateFormatVersion": "2010-09-09",
   "Parameters": {
-    "SourceS3Bucket": {
-      "Description": "S3 bucket name used to bootstrap destination S3 and DDB resources",
-      "Type": "String",
-      "Default": "ws-lambda-at-edge"
-    }
   },
   "Resources": {
     "IamLambdaExecutionRoleBasic": {
       "Type": "AWS::IAM::Role",
       "Properties": {
         "RoleName": {
-          "Fn::Join": [
-            "-",
-            [
-              "ws-lambda-at-edge-basic",
-              {
-                "Fn::Select": [
-                  0,
-                  {
-                    "Fn::Split": [
-                      "-",
-                      {
-                        "Fn::Select": [
-                          2,
-                          {
-                            "Fn::Split": [
-                              "/",
-                              {
-                                "Ref": "AWS::StackId"
-                              }
-                            ]
-                          }
-                        ]
-                      }
-                    ]
-                  }
-                ]
+          "Fn::Sub": [
+            "ws-lambda-at-edge-basic-${UniqueId}",
+            {
+              "UniqueId": {
+                "Fn::Select": [ 0, { "Fn::Split": [ "-", { "Fn::Select": [ 2, {
+                "Fn::Split": [ "/", { "Ref": "AWS::StackId" } ] } ] } ] } ]
               }
-            ]
+            }
           ]
         },
         "ManagedPolicyArns": [
@@ -65,94 +40,18 @@
         }
       }
     },
-    "IamS3RoleRoleFullAccess": {
-      "Type": "AWS::IAM::Role",
-      "Properties": {
-        "RoleName": {
-          "Fn::Join": [
-            "-",
-            [
-              "ws-lambda-at-edge-full-s3-access",
-              {
-                "Fn::Select": [
-                  0,
-                  {
-                    "Fn::Split": [
-                      "-",
-                      {
-                        "Fn::Select": [
-                          2,
-                          {
-                            "Fn::Split": [
-                              "/",
-                              {
-                                "Ref": "AWS::StackId"
-                              }
-                            ]
-                          }
-                        ]
-                      }
-                    ]
-                  }
-                ]
-              }
-            ]
-          ]
-        },
-        "ManagedPolicyArns": [
-          "arn:aws:iam::aws:policy/AmazonS3FullAccess"
-        ],
-        "Path": "/",
-        "AssumeRolePolicyDocument": {
-          "Version": "2012-10-17",
-          "Statement": [
-            {
-              "Effect": "Allow",
-              "Principal": {
-                "Service": [
-                  "s3.amazonaws.com"
-                ]
-              },
-              "Action": [
-                "sts:AssumeRole"
-              ]
-            }
-          ]
-        }
-      }
-    },
     "IamLambdaExecutionRoleReadOnly": {
       "Type": "AWS::IAM::Role",
       "Properties": {
         "RoleName": {
-          "Fn::Join": [
-            "-",
-            [
-              "ws-lambda-at-edge-read-only",
-              {
-                "Fn::Select": [
-                  0,
-                  {
-                    "Fn::Split": [
-                      "-",
-                      {
-                        "Fn::Select": [
-                          2,
-                          {
-                            "Fn::Split": [
-                              "/",
-                              {
-                                "Ref": "AWS::StackId"
-                              }
-                            ]
-                          }
-                        ]
-                      }
-                    ]
-                  }
-                ]
+          "Fn::Sub": [
+            "ws-lambda-at-edge-read-only-${UniqueId}",
+            {
+              "UniqueId": {
+                "Fn::Select": [ 0, { "Fn::Split": [ "-", { "Fn::Select": [ 2, {
+                "Fn::Split": [ "/", { "Ref": "AWS::StackId" } ] } ] } ] } ]
               }
-            ]
+            }
           ]
         },
         "ManagedPolicyArns": [
@@ -184,34 +83,14 @@
       "Type": "AWS::IAM::Role",
       "Properties": {
         "RoleName": {
-          "Fn::Join": [
-            "-",
-            [
-              "ws-lambda-at-edge-full-access",
-              {
-                "Fn::Select": [
-                  0,
-                  {
-                    "Fn::Split": [
-                      "-",
-                      {
-                        "Fn::Select": [
-                          2,
-                          {
-                            "Fn::Split": [
-                              "/",
-                              {
-                                "Ref": "AWS::StackId"
-                              }
-                            ]
-                          }
-                        ]
-                      }
-                    ]
-                  }
-                ]
+          "Fn::Sub": [
+            "ws-lambda-at-edge-full-access-${UniqueId}",
+            {
+              "UniqueId": {
+                "Fn::Select": [ 0, { "Fn::Split": [ "-", { "Fn::Select": [ 2, {
+                "Fn::Split": [ "/", { "Ref": "AWS::StackId" } ] } ] } ] } ]
               }
-            ]
+            }
           ]
         },
         "ManagedPolicyArns": [
@@ -239,164 +118,18 @@
         }
       }
     },
-    "S3BucketUS": {
-      "Type": "AWS::S3::Bucket",
-      "DependsOn": [
-        "TriggerLambdaCreateS3BucketEU"
-      ],
-      "Properties": {
-        "BucketName": {
-          "Fn::Join": [
-            "-",
-            [
-              "ws-lambda-at-edge-us",
-              {
-                "Fn::Select": [
-                  0,
-                  {
-                    "Fn::Split": [
-                      "-",
-                      {
-                        "Fn::Select": [
-                          2,
-                          {
-                            "Fn::Split": [
-                              "/",
-                              {
-                                "Ref": "AWS::StackId"
-                              }
-                            ]
-                          }
-                        ]
-                      }
-                    ]
-                  }
-                ]
-              }
-            ]
-          ]
-        },
-        "AccessControl": "PublicRead",
-        "WebsiteConfiguration": {
-          "IndexDocument": "index.html"
-        },
-        "ReplicationConfiguration": {
-          "Role": {
-            "Fn::GetAtt": [
-              "IamS3RoleRoleFullAccess",
-              "Arn"
-            ]
-          },
-          "Rules": [
-            {
-              "Destination": {
-                "Bucket": {
-                  "Fn::Join": [
-                    "-",
-                    [
-                      "arn:aws:s3:::ws-lambda-at-edge-eu",
-                      {
-                        "Fn::Select": [
-                          0,
-                          {
-                            "Fn::Split": [
-                              "-",
-                              {
-                                "Fn::Select": [
-                                  2,
-                                  {
-                                    "Fn::Split": [
-                                      "/",
-                                      {
-                                        "Ref": "AWS::StackId"
-                                      }
-                                    ]
-                                  }
-                                ]
-                              }
-                            ]
-                          }
-                        ]
-                      }
-                    ]
-                  ]
-                },
-                "StorageClass": "STANDARD"
-              },
-              "Id": "ws-lambda-at-edge-s3",
-              "Prefix": "",
-              "Status": "Enabled"
-            }
-          ]
-        },
-        "VersioningConfiguration": {
-          "Status": "Enabled"
-        }
-      }
-    },
-    "S3BucketUSPolicy": {
-      "Type": "AWS::S3::BucketPolicy",
-      "Properties": {
-        "Bucket": {
-          "Ref": "S3BucketUS"
-        },
-        "PolicyDocument": {
-          "Statement": [
-            {
-              "Action": [
-                "s3:GetObject"
-              ],
-              "Effect": "Allow",
-              "Principal": "*",
-              "Resource": {
-                "Fn::Join": [
-                  "",
-                  [
-                    "arn:aws:s3:::",
-                    {
-                      "Ref": "S3BucketUS"
-                    },
-                    "/*"
-                  ]
-                ]
-              }
-            }
-          ]
-        }
-      }
-    },
-    "DdbCardsTable": {
+    "AlienCardsDynamoDBTable": {
       "Type": "AWS::DynamoDB::Table",
       "Properties": {
         "TableName": {
-          "Fn::Join": [
-            "-",
-            [
-              "AlienCards",
-              {
-                "Fn::Select": [
-                  0,
-                  {
-                    "Fn::Split": [
-                      "-",
-                      {
-                        "Fn::Select": [
-                          2,
-                          {
-                            "Fn::Split": [
-                              "/",
-                              {
-                                "Ref": "AWS::StackId"
-                              }
-                            ]
-                          }
-                        ]
-                      }
-                    ]
-                  }
-                ]
+          "Fn::Sub": [
+            "AlienCards-${UniqueId}",
+            {
+              "UniqueId": {
+                "Fn::Select": [ 0, { "Fn::Split": [ "-", { "Fn::Select": [ 2, {
+                "Fn::Split": [ "/", { "Ref": "AWS::StackId" } ] } ] } ] } ]
               }
-            ]
+            }
           ]
         },
         "KeySchema": [
@@ -420,643 +153,108 @@
         }
       }
     },
-    "BootstrapFunction": {
-      "Type": "AWS::Lambda::Function",
+    "AlienCardsS3Bucket": {
+      "Type": "AWS::S3::Bucket",
       "Properties": {
-        "Handler": "index.handler",
-        "Runtime": "nodejs6.10",
-        "Timeout": 60,
-        "Role": {
-          "Fn::GetAtt": [
-            "IamLambdaExecutionRoleFullAccess",
-            "Arn"
-          ]
-        },
-        "Code": {
-          "ZipFile": {
-            "Fn::Join": [
-              "",
-              [
-                "const AWS = require('aws-sdk');\n",
-                "const s3 = new AWS.S3({region: 'us-west-2'});\n",
-                "const ddb = new AWS.DynamoDB({region: 'us-west-2', apiVersion: '2012-10-08'});\n",
-                "const cfn = require('cfn-response');\n",
-                "\n",
-                "const promise = (func) => new Promise((resolve, reject) => {\n",
-                "    func((err, data) => { if (err) reject(err); else resolve(data); });\n",
-                "});\n",
-                "\n",
-                "const s3ListObjects         = (params) => promise(x => s3.listObjects(params, x));\n",
-                "const s3GetObject           = (params) => promise(x => s3.getObject(params, x));\n",
-                "const s3PutObject           = (params) => promise(x => s3.putObject(params, x));\n",
-                "const ddbPutItem            = (params) => promise(x => ddb.putItem(params, x));\n",
-                "\n",
-                "exports.handler = (event, context) => {\n",
-                "    console.log('event: ' + JSON.stringify(event, null, 2));\n",
-                "    console.log('context: ' + JSON.stringify(context, null, 2));\n",
-                "\n",
-                "    const srcBucket = event.ResourceProperties.SrcS3Bucket;\n",
-                "    const dstBucket = event.ResourceProperties.DstS3Bucket;\n",
-                "    const ddbTableName = event.ResourceProperties.DdbTableName;\n",
-                "\n",
-                "    const bootstrapS3 = \n",
-                "        s3ListObjects({ Bucket: srcBucket })\n",
-                "        .then(list => Promise.all(list.Contents\n",
-                "            .map(obj => { return obj.Key; })\n",
-                "            .filter(key => { return !key.startsWith('bootstrap'); })\n",
-                "            .map(key => {\n",
-                "                console.log(`copying ${key}`);\n",
-                "                return s3GetObject({ \n",
-                "                    Bucket: srcBucket, Key: key\n",
-                "                }).then(data => s3PutObject({\n",
-                "                    Bucket: dstBucket, Key: key, \n",
-                "                    Body: data.Body, ContentType: data.ContentType\n",
-                "                }));\n",
-                "            })\n",
-                "        ));\n",
-                "\n",
-                "\n",
-                "    const bootstrapDDB =\n",
-                "        s3GetObject({ Bucket: srcBucket, Key: 'bootstrap/cards.json' })\n",
-                "        .then(data => Promise.all(JSON.parse(data.Body)\n",
-                "            .map(card => ddbPutItem({\n",
-                "                TableName: ddbTableName,\n",
-                "                Item: { \n",
-                "                    CardId: { 'S': card.CardId }, \n",
-                "                    Description: { 'S': card.Description }, \n",
-                "                    Likes: { 'N': '0' } \n",
-                "                }\n",
-                "            }))\n",
-                "        ));\n",
-                "\n",
-                "    Promise.all([bootstrapS3, bootstrapDDB])\n",
-                "    .then(data => {\n",
-                "        console.log('Bootstrap: DONE!');\n",
-                "        cfn.send(event, context, cfn.SUCCESS);\n",
-                "    })\n",
-                "    .catch(err => {\n",
-                "        console.log('error: ' + JSON.stringify(err, null, 2));\n",
-                "        cfn.send(event, context, cfn.FAILED, err);\n",
-                "    });\n",
-                "};\n"
-              ]
-            ]
-          }
-        }
-      }
-    },
-    "BootstrapCustomResource": {
-      "Type": "Custom::BootstrapFunction",
-      "DependsOn": [
-        "DdbCardsTable",
-        "S3BucketUS",
-        "TriggerLambdaCreateDdbTableEU",
-        "TriggerLambdaCreateGlobalDdbTable"
-      ],
-      "Properties": {
-        "ServiceToken": {
-          "Fn::GetAtt": [
-            "BootstrapFunction",
-            "Arn"
-          ]
-        },
-        "SrcS3Bucket": {
-          "Ref": "SourceS3Bucket"
-        },
-        "DstS3Bucket": {
-          "Ref": "S3BucketUS"
-        },
-        "DdbTableName": {
-          "Ref": "DdbCardsTable"
-        }
-      }
-    },
-    "TriggerLambdaCreateS3BucketEU": {
-      "Type": "Custom::LambdaTrig",
-      "Properties": {
-        "ServiceToken": {
-          "Fn::GetAtt": [
-            "CreateS3BucketFunction",
-            "Arn"
-          ]
-        },
         "BucketName": {
-          "Fn::Join": [
-            "-",
-            [
-              "ws-lambda-at-edge-eu",
-              {
-                "Fn::Select": [
-                  0,
-                  {
-                    "Fn::Split": [
-                      "-",
-                      {
-                        "Fn::Select": [
-                          2,
-                          {
-                            "Fn::Split": [
-                              "/",
-                              {
-                                "Ref": "AWS::StackId"
-                              }
-                            ]
-                          }
-                        ]
-                      }
-                    ]
-                  }
-                ]
+          "Fn::Sub": [
+            "alien-cards-${UniqueId}",
+            {
+              "UniqueId": {
+                "Fn::Select": [ 0, { "Fn::Split": [ "-", { "Fn::Select": [ 2, {
+                "Fn::Split": [ "/", { "Ref": "AWS::StackId" } ] } ] } ] } ]
               }
-            ]
-          ]
-        },
-        "BucketRegion": "eu-central-1"
-      }
-    },
-    "TriggerLambdaCreateDdbTableEU": {
-      "Type": "Custom::LambdaTrig",
-      "Properties": {
-        "ServiceToken": {
-          "Fn::GetAtt": [
-            "CreateDdbTableFunction",
-            "Arn"
-          ]
-        },
-        "Region": "eu-central-1",
-        "DdbTableName": {
-          "Fn::Join": [
-            "-",
-            [
-              "AlienCards",
-              {
-                "Fn::Select": [
-                  0,
-                  {
-                    "Fn::Split": [
-                      "-",
-                      {
-                        "Fn::Select": [
-                          2,
-                          {
-                            "Fn::Split": [
-                              "/",
-                              {
-                                "Ref": "AWS::StackId"
-                              }
-                            ]
-                          }
-                        ]
-                      }
-                    ]
-                  }
-                ]
-              }
-            ]
+            }
           ]
         }
       }
     },
-    "TriggerLambdaCreateGlobalDdbTable": {
-      "Type": "Custom::LambdaTrig",
+    "AlienCardsS3BucketPolicy": {
+      "Type": "AWS::S3::BucketPolicy",
       "DependsOn": [
-        "DdbCardsTable",
-        "TriggerLambdaCreateDdbTableEU"
+        "AlienCardsS3Bucket"
       ],
       "Properties": {
-        "ServiceToken": {
-          "Fn::GetAtt": [
-            "CreateGlobalDdbTableFunction",
-            "Arn"
-          ]
-        },
-        "DdbTableName": {
-          "Fn::Join": [
-            "-",
-            [
-              "AlienCards",
-              {
-                "Fn::Select": [
-                  0,
+        "Bucket": { "Ref": "AlienCardsS3Bucket" },
+        "PolicyDocument": {
+          "Id": "PolicyForCloudFrontPrivateContent",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Principal": {
+                "AWS": {
+                  "Fn::Sub": "arn:aws:iam::cloudfront:user/CloudFront Origin Access Identity ${AlienCardsCloudFrontOAI}"
+                }
+              },
+              "Action": "s3:GetObject",
+              "Resource": {
+                "Fn::Sub": [
+                  "${AlienCardsS3BucketArn}/*",
                   {
-                    "Fn::Split": [
-                      "-",
-                      {
-                        "Fn::Select": [
-                          2,
-                          {
-                            "Fn::Split": [
-                              "/",
-                              {
-                                "Ref": "AWS::StackId"
-                              }
-                            ]
-                          }
-                        ]
-                      }
-                    ]
+                    "AlienCardsS3BucketArn": {
+                      "Fn::GetAtt": [ "AlienCardsS3Bucket", "Arn" ]
+                    }
                   }
                 ]
               }
-            ]
+            }
           ]
         }
       }
     },
-    "CreateS3BucketFunction": {
-      "Type": "AWS::Lambda::Function",
+    "AlienCardsCloudFrontOAI": {
+      "Type": "AWS::CloudFront::CloudFrontOriginAccessIdentity",
       "Properties": {
-        "Handler": "index.handler",
-        "Runtime": "nodejs6.10",
-        "Timeout": 60,
-        "Role": {
-          "Fn::GetAtt": [
-            "IamLambdaExecutionRoleFullAccess",
-            "Arn"
-          ]
-        },
-        "Code": {
-          "ZipFile": {
-            "Fn::Join": [
-              "",
-              [
-                "var aws = require('aws-sdk');\n",
-                "var response = require('cfn-response');\n",
-                "\n",
-                "exports.handler = function(event, context, callback) {\n",
-                "    var s3 = new aws.S3({\n",
-                "        region: event.ResourceProperties.BucketRegion\n",
-                "    });\n",
-                "    \n",
-                "    if (event.RequestType == 'Create' || event.RequestType == 'Update') {\n",
-                "        var bucketParams = {\n",
-                "            Bucket: event.ResourceProperties.BucketName,\n",
-                "            ACL: 'public-read'\n",
-                "        };\n",
-                "        s3.createBucket(bucketParams, function(err, data) {\n",
-                "            if (err) {\n",
-                "                console.log(err, err.stack);\n",
-                "                response.send(event, context, response.FAILED, err);\n",
-                "            } else {\n",
-                "                console.log(data);\n",
-                "                var versioningParams = {\n",
-                "                    Bucket: event.ResourceProperties.BucketName,\n",
-                "                    VersioningConfiguration: {\n",
-                "                        Status: 'Enabled'\n",
-                "                    }\n",
-                "                };\n",
-                "                s3.putBucketVersioning(versioningParams, function(err, data) {\n",
-                "                    if (err) {\n",
-                "                        console.log(err, err.stack);\n",
-                "                        response.send(event, context, response.FAILED, err);\n",
-                "                    } else {\n",
-                "                        console.log(data);\n",
-                "                        var websiteParams = {\n",
-                "                            Bucket: event.ResourceProperties.BucketName,\n",
-                "                            WebsiteConfiguration: {\n",
-                "                                IndexDocument: {\n",
-                "                                    Suffix: 'index.html'\n",
-                "                                }\n",
-                "                            }\n",
-                "                        };\n",
-                "                        s3.putBucketWebsite(websiteParams, function(err, data) {\n",
-                "                            if (err) {\n",
-                "                                console.log(err, err.stack);\n",
-                "                                response.send(event, context, response.FAILED, err);\n",
-                "                            } else {\n",
-                "                                console.log(data);\n",
-                "                                var bucketPolicyParams = {\n",
-                "                                    Bucket: event.ResourceProperties.BucketName,\n",
-                "                                    Policy: '{\"Version\":\"2008-10-17\",\"Statement\":[{\"Effect\":\"Allow\",\"Principal\":\"*\",\"Action\":\"s3:GetObject\",\"Resource\":\"arn:aws:s3:::' + event.ResourceProperties.BucketName + '/*\"}]}'\n",
-                "                                };\n",
-                "                                s3.putBucketPolicy(bucketPolicyParams, function(err, data) {\n",
-                "                                    if (err) {\n",
-                "                                        console.log(err, err.stack);\n",
-                "                                        response.send(event, context, response.FAILED, err);\n",
-                "                                    } else {\n",
-                "                                        console.log(data);\n",
-                "                                        response.send(event, context, response.SUCCESS, {}, event.BucketName);\n",
-                "                                        callback(null, 'Bucket and DDB Table Created!');\n",
-                "                                    }\n",
-                "                                });\n",
-                "                            }\n",
-                "                        });\n",
-                "                    }\n",
-                "                });\n",
-                "            }\n",
-                "        });\n",
-                "    } else if (event.RequestType == 'Delete') {\n",
-                "        console.log('Please delete the ' + event.PhysicalResourceId + ' bucket.');\n",
-                "        response.send(event, context, response.SUCCESS, {}, event.PhysicalResourceId);\n",
-                "        callback(null);\n",
-                "    }\n",
-                "};\n"
-              ]
+        "CloudFrontOriginAccessIdentityConfig": {
+          "Comment": {
+            "Fn::Sub": [
+              "OAI For Lambda@Edge Workshop ${UniqueId}",
+              {
+                "UniqueId": {
+                  "Fn::Select": [ 0, { "Fn::Split": [ "-", { "Fn::Select": [ 2, {
+                  "Fn::Split": [ "/", { "Ref": "AWS::StackId" } ] } ] } ] } ]
+                }
+              }
             ]
           }
         }
       }
     },
-    "CreateDdbTableFunction": {
-      "Type": "AWS::Lambda::Function",
-      "Properties": {
-        "Handler": "index.handler",
-        "Runtime": "nodejs6.10",
-        "Timeout": 60,
-        "Role": {
-          "Fn::GetAtt": [
-            "IamLambdaExecutionRoleFullAccess",
-            "Arn"
-          ]
-        },
-        "Code": {
-          "ZipFile": {
-            "Fn::Join": [
-              "",
-              [
-                "var aws = require('aws-sdk');\n",
-                "var response = require('cfn-response');\n",
-                "exports.handler = function(event, context, callback) {\n",
-                "\n",
-                "    var ddb = new aws.DynamoDB({\n",
-                "        region: event.ResourceProperties.Region\n",
-                "    });\n",
-                "    \n",
-                "    if (event.RequestType == 'Create' || event.RequestType == 'Update') {\n",
-                "        var ddbTableParams = {\n",
-                "            AttributeDefinitions: [{\n",
-                "                AttributeName: 'CardId',\n",
-                "                AttributeType: 'S'\n",
-                "            }],\n",
-                "            KeySchema: [{\n",
-                "                AttributeName: 'CardId',\n",
-                "                KeyType: 'HASH'\n",
-                "            }],\n",
-                "            ProvisionedThroughput: {\n",
-                "                ReadCapacityUnits: 5,\n",
-                "                WriteCapacityUnits: 5\n",
-                "            },\n",
-                "            StreamSpecification: {\n",
-                "                StreamEnabled: true,\n",
-                "                StreamViewType: 'NEW_AND_OLD_IMAGES'\n",
-                "            },\n",
-                "            TableName: event.ResourceProperties.DdbTableName\n",
-                "        };\n",
-                "        ddb.createTable(ddbTableParams, function(err, data) {\n",
-                "            if (err) {\n",
-                "                console.log(err, err.stack);\n",
-                "                response.send(event, context, response.FAILED, err);\n",
-                "            } else {\n",
-                "                console.log(data);\n",
-                "                response.send(event, context, response.SUCCESS, {}, event.BucketName);\n",
-                "                callback(null, 'DDB Table Created!');\n",
-                "            }\n",
-                "        });\n",
-                "    } else if (event.RequestType == 'Delete') {\n",
-                "        console.log('Please delete the ' + event.PhysicalResourceId + ' bucket.');\n",
-                "        response.send(event, context, response.SUCCESS, {}, event.PhysicalResourceId);\n",
-                "        callback(null);\n",
-                "    }\n",
-                "};\n"
-              ]
-            ]
-          }
-        }
-      }
-    },
-    "CreateGlobalDdbTableFunction": {
-      "Type": "AWS::Lambda::Function",
-      "Properties": {
-        "Handler": "index.handler",
-        "Runtime": "nodejs6.10",
-        "Timeout": 60,
-        "Role": {
-          "Fn::GetAtt": [
-            "IamLambdaExecutionRoleFullAccess",
-            "Arn"
-          ]
-        },
-        "Code": {
-          "ZipFile": {
-            "Fn::Join": [
-              "",
-              [
-                "const AWS = require('aws-sdk');\n",
-                "const s3 = new AWS.S3({region: 'us-west-2'});\n",
-                "const ddb = new AWS.DynamoDB({region: 'us-west-2', apiVersion: '2012-10-08'});\n",
-                "const cfn = require('cfn-response');\n",
-                "\n",
-                "const promise = (func) => new Promise((resolve, reject) => {\n",
-                "    func((err, data) => { if (err) reject(err); else resolve(data); });\n",
-                "});\n",
-                "\n",
-                "const ddbCreateGlobalTable  = (params) => promise(x => ddb.createGlobalTable(params, x));\n",
-                "\n",
-                "exports.handler = (event, context) => {\n",
-                "    console.log('event: ' + JSON.stringify(event, null, 2));\n",
-                "    console.log('context: ' + JSON.stringify(context, null, 2));\n",
-                "\n",
-                "    const ddbTableName = event.ResourceProperties.DdbTableName;\n",
-                "    const replicationGroup = [\n",
-                "      {\n",
-                "        RegionName: 'us-west-2'\n",
-                "\t     },\n",
-                "      {\n",
-                "        RegionName: 'eu-central-1'\n",
-                "\t     }\n",
-                "    ];\n",
-                "\n",
-                "    if (event.RequestType != 'Create')\n",
-                "        return cfn.send(event, context, cfn.SUCCESS);\n",
-                "\n",
-                "    const createGlobalTable =\n",
-                "        ddbCreateGlobalTable({ GlobalTableName: ddbTableName, ReplicationGroup: replicationGroup})\n",
-                "        .then(data => {\n",
-                "             console.log('Global tables created!');\n",
-                "        });\n",
-                "\n",
-                "    Promise.all([createGlobalTable])\n",
-                "    .then(data => {\n",
-                "        console.log('Global tables created: DONE!');\n",
-                "        cfn.send(event, context, cfn.SUCCESS);\n",
-                "    })\n",
-                "    .catch(err => {\n",
-                "        console.log('error: ' + JSON.stringify(err, null, 2));\n",
-                "        cfn.send(event, context, cfn.FAILED, err);\n",
-                "    });\n",
-                "};\n"
-              ]
-            ]
-          }
-        }
-      }
-    },
-    "CloudFrontDistribution": {
+    "AlienCardsCloudFrontDistribution": {
       "Type": "AWS::CloudFront::Distribution",
       "DependsOn": [
-        "BootstrapCustomResource"
+        "AlienCardsS3Bucket",
+        "AlienCardsCloudFrontOAI"
       ],
       "Properties": {
         "DistributionConfig": {
           "Comment": {
-            "Fn::Join": [
-              " ",
-              [
-                "Lambda@Edge Workshop",
-                {
-                  "Fn::Select": [
-                    0,
-                    {
-                      "Fn::Split": [
-                        "-",
-                        {
-                          "Fn::Select": [
-                            2,
-                            {
-                              "Fn::Split": [
-                                "/",
-                                {
-                                  "Ref": "AWS::StackId"
-                                }
-                              ]
-                            }
-                          ]
-                        }
-                      ]
-                    }
-                  ]
+            "Fn::Sub": [
+              "Lambda@Edge Workshop ${UniqueId}",
+              {
+                "UniqueId": {
+                  "Fn::Select": [ 0, { "Fn::Split": [ "-", { "Fn::Select": [ 2, {
+                  "Fn::Split": [ "/", { "Ref": "AWS::StackId" } ] } ] } ] } ]
                 }
-              ]
+              }
             ]
           },
           "Origins": [
             {
-              "OriginPath": "",
-              "S3OriginConfig": {},
-              "Id": {
-                "Fn::Join": [
-                  "",
-                  [
-                    "S3-Website-",
-                    {
-                      "Fn::Join": [
-                        "-",
-                        [
-                          "ws-lambda-at-edge-eu",
-                          {
-                            "Fn::Select": [
-                              0,
-                              {
-                                "Fn::Split": [
-                                  "-",
-                                  {
-                                    "Fn::Select": [
-                                      2,
-                                      {
-                                        "Fn::Split": [
-                                          "/",
-                                          {
-                                            "Ref": "AWS::StackId"
-                                          }
-                                        ]
-                                      }
-                                    ]
-                                  }
-                                ]
-                              }
-                            ]
-                          }
-                        ]
-                      ]
-                    },
-                    ".s3.eu-central-1.amazonaws.com"
-                  ]
-                ]
-              },
+              "Id": "AlienCardsS3BucketOriginId",
               "DomainName": {
-                "Fn::Join": [
-                  "",
-                  [
-                    "",
-                    {
-                      "Fn::Join": [
-                        "-",
-                        [
-                          "ws-lambda-at-edge-eu",
-                          {
-                            "Fn::Select": [
-                              0,
-                              {
-                                "Fn::Split": [
-                                  "-",
-                                  {
-                                    "Fn::Select": [
-                                      2,
-                                      {
-                                        "Fn::Split": [
-                                          "/",
-                                          {
-                                            "Ref": "AWS::StackId"
-                                          }
-                                        ]
-                                      }
-                                    ]
-                                  }
-                                ]
-                              }
-                            ]
-                          }
-                        ]
-                      ]
-                    },
-                    ".s3.eu-central-1.amazonaws.com"
-                  ]
-                ]
+                "Fn::GetAtt": [ "AlienCardsS3Bucket", "RegionalDomainName" ]
+              },
+              "S3OriginConfig": {
+                "OriginAccessIdentity": {
+                  "Fn::Sub": "origin-access-identity/cloudfront/${AlienCardsCloudFrontOAI}"
+                }
               }
             }
           ],
           "DefaultRootObject": "index.html",
           "DefaultCacheBehavior": {
-            "TargetOriginId": {
-              "Fn::Join": [
-                "",
-                [
-                  "S3-Website-",
-                  {
-                    "Fn::Join": [
-                      "-",
-                      [
-                        "ws-lambda-at-edge-eu",
-                        {
-                          "Fn::Select": [
-                            0,
-                            {
-                              "Fn::Split": [
-                                "-",
-                                {
-                                  "Fn::Select": [
-                                    2,
-                                    {
-                                      "Fn::Split": [
-                                        "/",
-                                        {
-                                          "Ref": "AWS::StackId"
-                                        }
-                                      ]
-                                    }
-                                  ]
-                                }
-                              ]
-                            }
-                          ]
-                        }
-                      ]
-                    ]
-                  },
-                  ".s3.eu-central-1.amazonaws.com"
-                ]
-              ]
-            },
+            "TargetOriginId": "AlienCardsS3BucketOriginId",
             "ViewerProtocolPolicy": "allow-all",
             "ForwardedValues": {
               "Headers": [],
@@ -1078,44 +276,133 @@
           "IPV6Enabled": true,
           "Enabled": true,
           "CustomErrorResponses": [
-            {
-              "ErrorCachingMinTTL": 5,
-              "ErrorCode": 400
-            },
-            {
-              "ErrorCachingMinTTL": 5,
-              "ErrorCode": 403
-            },
-            {
-              "ErrorCachingMinTTL": 5,
-              "ErrorCode": 404
-            },
-            {
-              "ErrorCachingMinTTL": 5,
-              "ErrorCode": 405
-            },
-            {
-              "ErrorCachingMinTTL": 5,
-              "ErrorCode": 500
-            },
-            {
-              "ErrorCachingMinTTL": 5,
-              "ErrorCode": 501
-            },
-            {
-              "ErrorCachingMinTTL": 5,
-              "ErrorCode": 502
-            },
-            {
-              "ErrorCachingMinTTL": 5,
-              "ErrorCode": 503
-            },
-            {
-              "ErrorCachingMinTTL": 5,
-              "ErrorCode": 504
-            }
+            { "ErrorCachingMinTTL": 5, "ErrorCode": 400 },
+            { "ErrorCachingMinTTL": 5, "ErrorCode": 403 },
+            { "ErrorCachingMinTTL": 5, "ErrorCode": 404 },
+            { "ErrorCachingMinTTL": 5, "ErrorCode": 405 },
+            { "ErrorCachingMinTTL": 5, "ErrorCode": 500 },
+            { "ErrorCachingMinTTL": 5, "ErrorCode": 501 },
+            { "ErrorCachingMinTTL": 5, "ErrorCode": 502 },
+            { "ErrorCachingMinTTL": 5, "ErrorCode": 503 },
+            { "ErrorCachingMinTTL": 5, "ErrorCode": 504 }
           ]
         }
+      }
+    },
+    "BootstrapFunction": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Handler": "index.handler",
+        "Runtime": "nodejs8.10",
+        "Timeout": 60,
+        "Role": {
+          "Fn::GetAtt": [ "IamLambdaExecutionRoleFullAccess", "Arn" ]
+        },
+        "Code": {
+          "ZipFile": {
+            "Fn::Join": [
+              "",
+              [
+                "const AWS = require('aws-sdk');\n",
+                "const s3 = new AWS.S3({region: 'us-east-1'});\n",
+                "const ddb = new AWS.DynamoDB({region: 'us-east-1', apiVersion: '2012-10-08'});\n",
+                "const cfn = require('cfn-response');\n",
+                "\n",
+                "const {promisify} = require('util');\n",
+                "const cfnSend = promisify(cfn.send);\n",
+                "\n",
+                "exports.handler = async (event, context) => {\n",
+                "    console.log('event: ' + JSON.stringify(event, null, 2));\n",
+                "    console.log('context: ' + JSON.stringify(context, null, 2));\n",
+                "    try {\n",
+                "        if (event.RequestType == 'Create' || event.RequestType == 'Update') {\n",
+                "            await Promise.all([bootstrapS3(event), bootstrapDDB(event)]);\n",
+                "        } else if (event.RequestType == 'Delete') {\n",
+                "            await Promise.all([cleanupS3(event)]);\n",
+                "        }\n",
+                "        await cfnSend(event, context, cfn.SUCCESS);\n",
+                "    } catch (err) {\n",
+                "        console.log(err);\n",
+                "        await cfnSend(event, context, cfn.FAILED, err);\n",
+                "    }\n",
+                "};\n",
+                "\n",
+                "async function bootstrapS3(event) {\n",
+                "    const srcBucket = event.ResourceProperties.SrcS3Bucket;\n",
+                "    const dstBucket = event.ResourceProperties.DstS3Bucket;\n",
+                "    let objects = await s3.listObjects({ Bucket: srcBucket }).promise();\n",
+                "    await Promise.all(\n",
+                "        objects.Contents\n",
+                "        .map(obj => { return obj.Key; })\n",
+                "        .filter(key => { return !key.startsWith('bootstrap'); })\n",
+                "        .map(async key => {\n",
+                "            console.log(`getting ${key}`);\n",
+                "            let data = await s3.getObject({\n",
+                "                Bucket: srcBucket, Key: key\n",
+                "            }).promise();\n",
+                "            console.log(`copying ${data.ContentLength} bytes of ${key}`);\n",
+                "            await s3.putObject({\n",
+                "                Bucket: dstBucket, Key: key, \n",
+                "                Body: data.Body, ContentType: data.ContentType\n",
+                "            }).promise();\n",
+                "        })\n",
+                "    );\n",
+                "}\n",
+                "\n",
+                "async function cleanupS3(event) {\n",
+                "    const dstBucket = event.ResourceProperties.DstS3Bucket;\n",
+                "    let objects = await s3.listObjects({ Bucket: dstBucket }).promise();\n",
+                "    await Promise.all(\n",
+                "        objects.Contents\n",
+                "        .map(obj => { return obj.Key; })\n",
+                "        .map(async key => {\n",
+                "            console.log(`deleting ${key}`);\n",
+                "            let data = await s3.deleteObject({\n",
+                "                Bucket: dstBucket, Key: key\n",
+                "            }).promise();\n",
+                "        })\n",
+                "    );\n",
+                "}\n",
+                "\n",
+                "async function bootstrapDDB(event) {\n",
+                "    const srcBucket = event.ResourceProperties.SrcS3Bucket;\n",
+                "    const ddbTableName = event.ResourceProperties.DdbTableName;\n",
+                "    let data = await s3.getObject({ \n",
+                "        Bucket: srcBucket, Key: 'bootstrap/cards.json'\n",
+                "    }).promise();\n",
+                "    await Promise.all(\n",
+                "        JSON.parse(data.Body)\n",
+                "        .map(card => \n",
+                "            ddb.putItem({\n",
+                "                TableName: ddbTableName,\n",
+                "                Item: { \n",
+                "                    CardId: { 'S': card.CardId }, \n",
+                "                    Description: { 'S': card.Description }, \n",
+                "                    Likes: { 'N': '0' } \n",
+                "                }\n",
+                "            }).promise()\n",
+                "        )\n",
+                "    );\n",
+                "}\n"
+              ]
+            ]
+          }
+        }
+      }
+    },
+    "BootstrapCustomResource": {
+      "Type": "Custom::BootstrapFunction",
+      "DependsOn": [
+        "AlienCardsS3Bucket",
+        "AlienCardsDynamoDBTable"
+      ],
+      "Properties": {
+        "ServiceToken": {
+          "Fn::GetAtt": [ "BootstrapFunction", "Arn" ]
+        },
+        "SrcS3Bucket": "ws-lambda-at-edge",
+        "DstS3Bucket": { "Ref": "AlienCardsS3Bucket" },
+        "DdbTableName": { "Ref": "AlienCardsDynamoDBTable" }
       }
     }
   }

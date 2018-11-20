@@ -1,12 +1,11 @@
 'use strict';
 
-exports.handler = (event, context, callback) => {
+exports.handler = async (event) => {
     console.log('Event: ', JSON.stringify(event, null, 2));
-    console.log('Context: ', JSON.stringify(context, null, 2));
-    const request = event.Records[0].cf.request;
+    let request = event.Records[0].cf.request;
 
-    // You can also store and read the redirect map
-    // in DynamoDB or S3, for example.
+    // You can also use DynamoDB or S3 to store the redirect map
+    // For demo purposes, we simply hardcode it here
 
     const redirects = {
         '/r/music':    '/card/bcbd2481',
@@ -18,16 +17,15 @@ exports.handler = (event, context, callback) => {
     };
 
     if (redirects[request.uri]) {
-        return callback(null, {
+        // generate 302 redirect response
+        return {
             status: '302',
             statusDescription: 'Found',
             headers: {
-                'location': [{ 
-                    key: 'Location',
-                    value: redirects[request.uri] }]
+                'location': [{ value: redirects[request.uri] }]
             }
-        });
+        };
     }
-
-    callback(null, request);
+    // pass through the request unchanged
+    return request;
 };

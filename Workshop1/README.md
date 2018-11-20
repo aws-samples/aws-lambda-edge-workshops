@@ -1,4 +1,4 @@
-# Supercharge your website with Lambda@Edge
+# Customizing Content Delivery with Lambda@Edge
 
 ## Overview
 
@@ -6,7 +6,7 @@ In this workshop you will learn how you can use [Lambda@Edge](https://docs.aws.a
 
 **Backstory**: Aliens have arrived. Humanity cannot communicate with them because we do not speak a common language. However, the aliens are curious and willing to learn the language by looking at beautiful images with short text descriptions. Let's build a website to help the aliens learn our language using simple learning cards!
 
-The workshop will demonstrate the usage of the following AWS services:
+The workshop demonstrates the usage of the following AWS services:
 * **Amazon S3**: the website's static files will be stored in an S3 bucket
 * **Amazon DynamoDB**: the dynamic data will be stored in a DynamoDB table
 * **Amazon CloudFront**: the fast and secure content delivery will be performed by a CloudFront distribution
@@ -14,13 +14,13 @@ The workshop will demonstrate the usage of the following AWS services:
 
 ## Lab 0 - Launch the Stack
 
-To start the workshop, launch the CloudFormation stack to bootstrap the resources in the us-west-2 (Oregon) region.
+To start the workshop, launch the CloudFormation stack to bootstrap the resources in the us-east-1 (N.Virginia) region.
 
 Click the launch stack button below to kick it off, accept all default values and wait for CloudFormation to complete the creation of the stack.
 
 Region | Button
 ------------ | -------------
-us-west-2 | [![Launch stack in us-west-2](https://s3.amazonaws.com/cloudformation-examples/cloudformation-launch-stack.png)](https://console.aws.amazon.com/cloudformation/home?region=us-west-2#/stacks/new?stackName=WsLambdaAtEdgeAlienCards&templateURL=https://s3.amazonaws.com/ws-lambda-at-edge/bootstrap/cfn-template.json)
+us-east-1 | [![Launch stack in us-east-1](https://s3.amazonaws.com/cloudformation-examples/cloudformation-launch-stack.png)](https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/new?stackName=WsLambdaAtEdgeAlienCards&templateURL=https://s3.amazonaws.com/ws-lambda-at-edge/bootstrap/cfn-template.json)
 
 Need more detailed instructions? Proceed to  
 [Lab 0 - Launch the stack (steps with screenshots)](./Lab0_LaunchTheStack/README.md)
@@ -56,18 +56,6 @@ Use Lambda@Edge to introduce pretty semantic URLs to your web application. Prett
 Learn how to serve content customized for the device type of a viewer.
 
 [Lab 5 - Customization](./Lab5_Customization/README.md)
-
-## Lab 6 - Dynamic Origin Selection
-
-Learn how to dynamically change origin to serve content from origin nearer to the country of the viewer.
-
-[Lab 6 - Dynamic Origin Selection](./Lab6_DynamicOriginSelection/README.md)
-
-## Lab 7 - Dynamic Datastore Selection
-
-Learn how to access data from DynamoDB table in region nearer to the country of the viewer.
-
-[Lab 7 - Dynamic Datastore Selection](./Lab7_DynamicDatastoreSelection/README.md)
 
 ## Cleanup
 

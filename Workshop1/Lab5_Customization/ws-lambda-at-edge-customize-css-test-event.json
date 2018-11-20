@@ -2,8 +2,26 @@
   "Records": [
     {
       "cf": {
+        "config": {
+          "distributionDomainName": "d123.cloudfront.net",
+          "distributionId": "E123EXAMPLE",
+          "eventType": "origin-request"
+        },
         "request": {
+          "clientIp": "2620:101:8030:74:9f2b:d246:c6e1:1d6a",
           "headers": {
+            "user-agent": [
+              {
+                "key": "User-Agent",
+                "value": "Amazon CloudFront"
+              }
+            ],
+            "host": [
+              {
+                "key": "Host",
+                "value": "alien-cards-be0359c0.s3.us-east-1.amazonaws.com"
+              }
+            ],
             "cloudfront-is-desktop-viewer": [
               {
                 "key": "CloudFront-Is-Desktop-Viewer",
@@ -11,11 +29,9 @@
               }
             ]
           },
+          "method": "GET",
           "uri": "/css/style.css",
-          "method": "GET"
-        },
-        "config": {
-          "distributionId": "EXAMPLE"
+          "querystring": ""
         }
       }
     }
