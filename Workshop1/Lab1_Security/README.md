@@ -109,7 +109,7 @@ You can do both of these steps separately, or alternatively you can do both of t
 
 You will be presented with `Deploy to Lambda@Edge` page where you configure the properties of the CloudFront trigger for your Lambda function.
 
-Set the trigger properties as shown below and click `Deploy`
+Set the trigger properties as shown below, acknowledge replication and click `Deploy`
 
 Field | Value
 --- | ---
