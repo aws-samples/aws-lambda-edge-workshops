@@ -59,7 +59,7 @@ Learn how to serve content customized for the device type of a viewer.
 
 ## Cleanup
 
-Clean your resources created for this workshop
+Clean your AWS resources created for this workshop.
 
 [Cleanup](./Cleanup/README.md)
 
