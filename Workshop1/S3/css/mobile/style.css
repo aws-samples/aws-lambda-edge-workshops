@@ -1,3 +1,7 @@
+.card_text {
+    font-size: 200%;
+}
+
 .card_wrap {
     position: relative;
     box-sizing: content-box;
