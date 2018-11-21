@@ -25,6 +25,12 @@ us-east-1 | [![Launch stack in us-east-1](https://s3.amazonaws.com/cloudformatio
 Need more detailed instructions? Proceed to  
 [Lab 0 - Launch the stack (steps with screenshots)](./Lab0_LaunchTheStack/README.md)
 
+The CloudFormation stack will create several AWS resources for this workshop, including an S3 bucket, CloudFront distribution, DynamoDB table, and IAM roles to be used as execution roles for your Lambda@Edge functions. You can see all resources created by the CloudFormation stack in [AWS CloudFormation Console](https://console.aws.amazon.com/cloudformation/home?region=us-east-1).
+
+Please note down the DynamoDB table name, like `AlienCards-8d8c0ff0`, and a CloudFront distribution domain name, like `d21536tl4oas8g.cloudfront.net`. You will need to use them in the upcoming labs. You can see these unique names created in your AWS account in [Amazon DynamoDB Console](https://console.aws.amazon.com/dynamodb/home?region=us-east-1#) and in [Amazon CloudFront Console](https://console.aws.amazon.com/cloudfront/home?region=us-east-1#) respectively.
+
+Note that in the labs we sometimes refer to the CloudFront domain name as `d123.cloudfront.net`, but you need to use the unique domain name of your CloudFront distribution.
+
 ## Lab 1 - Security
 
 Security is always the top priority.
