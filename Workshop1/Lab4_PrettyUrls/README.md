@@ -173,6 +173,8 @@ Assuming [Lab 2 - Content Generation](../Lab2_ContentGeneration/README.md) has b
 
 This can be achieved with the code snippet below. Paste it at the beginning of the handler defined in the function `ws-lambda-at-edge-generate-card-page` ([link to AWS Lambda Console](https://console.aws.amazon.com/lambda/home?region=us-east-1#/functions/ws-lambda-at-edge-generate-card-page)) created in Lab 2.
 
+Paste the snippet below with the map for re-writes to the global scope of the function. Alternatively, you can store such map in a DynamoDB table or as a configuration file in an S3 bucket.
+
 ```
 const redirects = {
     '/music':    '/card/bcbd2481',
@@ -182,7 +184,11 @@ const redirects = {
     '/cat':      '/card/k9b430fc',
     '/beer':     '/card/vc7efa69',
 };
+```
 
+Paste the snippet below to the beginning of the handler as shown on the screenshot below.
+
+```
 if (request.uri in redirects) {
     request.uri = redirects[request.uri];
 }
