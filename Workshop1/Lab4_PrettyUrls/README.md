@@ -186,7 +186,7 @@ const redirects = {
 };
 ```
 
-Paste the snippet below to the beginning of the handler as shown on the screenshot below.
+Paste also the following snippet to the beginning of the handler as shown on the screenshot below. This is the actual URI rewrite that changes URI according to the map above. See the screenshot below with the updated function code.
 
 ```
 if (request.uri in redirects) {
