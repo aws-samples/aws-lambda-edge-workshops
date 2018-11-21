@@ -8,7 +8,7 @@ document.getElementById("like").addEventListener("click", (e) => {
             if (req.status === 200) {
                 const res = JSON.parse(req.responseText);
                 document.getElementById("likes").innerHTML = res.Likes;
-                o.firstChild.data = "Done! :)";
+                o.firstChild.data = "Liked! :)";
             } else {
                 o.firstChild.data = "Error! :(";
             }
