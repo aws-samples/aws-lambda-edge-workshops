@@ -65,7 +65,7 @@ Learn how to serve content customized for the device type of a viewer.
 
 ## Extra challanges
 
-Here is a few extra challanges for you if you feel up to it:
+Here is a few extra challanges for you if you feel up to it.
 
 * Why aliens that landed in, say, Japan are learning English? It would make sense for them to learn Japanese instead, perhaps using some authentic pictures and characters. With Lambda@Edge you can inspect `CloudFront-Viewer-Country` header and select a different S3 bucket (for example, in the `ap-northeast-1` region) for CloudFront to fetch the images from using Content-Based Origin Selection feature. For more information, please refer to some public documentation:
     * [Personalize Content by Country or Device Type Headers](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/lambda-examples.html#lambda-examples-redirecting-examples)
