@@ -77,7 +77,7 @@ Here is a few extra challanges for you if you feel up to it:
     * [DynamoDB Global Tables, Developer Guide](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GlobalTables.html)
 
 * Sometimes, you may want to introduce a new change in your website to only a fraction of your viewers. You can do it with Lambda@Edge, for example, by rolling a dice and setting a cookie on the client side so that clients get consistent behavior, i.e. either variant A, or variant B, but not a mix of them.
-    * [Lambda@Edge Examples - A/B testing] (https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/lambda-examples.html#lambda-examples-general-examples)
+    * [Lambda@Edge Examples - A/B testing](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/lambda-examples.html#lambda-examples-general-examples)
 
 Interested in exploring more use cases that Lambda@Edge supports? Check this out.
 
