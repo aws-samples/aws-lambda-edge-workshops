@@ -164,9 +164,15 @@ X-XSS-Protection: 1; mode=block
 ... <more headers> ...
 ```
 
+If you are using Windows Powershell, you may want to the the following command:
+
+```
+Invoke-WebRequest -Uri 'https://d123.cloudfront.net' -Method 'HEAD'
+```
+
 ### 9. Rescan the website for security
 
-Rescan the distribution domain name with https://observatory.mozilla.org/ similar to step 1.
+Rescan the distribution domain name with https://observatory.mozilla.org/ similar to step 1. If you do it on the page with the results of the previous scan, click `Initiate Rescan`. If you do it from the home page using the link above, make sure to select the checkbox `Force a rescan instead of returning cached results`.
 
 Congratulations, now you have 100/100 score! :)
 
