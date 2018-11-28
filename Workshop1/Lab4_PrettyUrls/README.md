@@ -221,7 +221,7 @@ Click `Test` and validate the function has returned `200` response with a proper
 
 <details><summary>Show/hide the screenshot</summary>
   
-<kbd>![x](./img/1-06-test-invoke-success.png)</kbd>
+<kbd>![x](./img/2-03-test-invoke-success.png)</kbd>
 </details>
 
 #### 2.3 Deploy to Lambda@Edge
