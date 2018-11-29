@@ -33,35 +33,43 @@ Note that in the labs we sometimes refer to the CloudFront domain name as `d123.
 
 ## Lab 1 - Security
 
-Security is always the top priority.
+<img height="150" src="./img/lab1-security.png">
 
-Learn how to check and improve website security by configuring HTTP to HTTPs redirect and adding standard security headers to enforce HTTPS connection is always used by the client and prevent XSS.
+Security is always the top priority. Learn how to check and improve website security by configuring HTTP to HTTPs redirect and adding standard security headers to enforce HTTPS connection is always used by the client and prevent XSS.
 
-[Lab 1 - Security headers](./Lab1_Security/README.md)
+[Go to Lab 1 - Security headers](./Lab1_Security/README.md)
 
 ## Lab 2 - Content Generation
 
+<img height="150" src="./img/lab2-generate-content.png">
+
 Learn how to create a Lambda function that dynamically generates HTML content which can be cached by CloudFront and returned back to your viewers.
 
-[Lab 2 - Content generation](./Lab2_ContentGeneration/README.md)
+[Go to Lab 2 - Content generation](./Lab2_ContentGeneration/README.md)
 
 ## Lab 3 - Simple API
 
+<img height="150" src="./img/lab3-simple-api.png">
+
 Learn how you can use Lambda@Edge to implement a simple API that accepts POST requests from the viewers and modifies the web application state in a DynamoDB table.
 
-[Lab 3 - Simple API](./Lab3_SimpleAPI/README.md)
+[Go to Lab 3 - Simple API](./Lab3_SimpleAPI/README.md)
 
 ## Lab 4 - Pretty URLs
 
+<img height="150" src="./img/lab4-uri-rewrite.png">
+
 Use Lambda@Edge to introduce pretty semantic URLs to your web application. Pretty URLs are easy to read and remember, they also help with search engine optimization and allow your viewers to use the descriptive links in social media.
 
-[Lab 4 - Pretty URLs](./Lab4_PrettyUrls/README.md)
+[Go to Lab 4 - Pretty URLs](./Lab4_PrettyUrls/README.md)
 
 ## Lab 5 - Customization
 
+<img height="150" src="./img/lab5-mobile.jpg">
+
 Learn how to serve content customized for the device type of a viewer.
 
-[Lab 5 - Customization](./Lab5_Customization/README.md)
+[Go to Lab 5 - Customization](./Lab5_Customization/README.md)
 
 ## Extra challanges
 
