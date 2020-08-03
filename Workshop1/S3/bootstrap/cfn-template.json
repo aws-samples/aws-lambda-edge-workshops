@@ -293,7 +293,7 @@
       "Type": "AWS::Lambda::Function",
       "Properties": {
         "Handler": "index.handler",
-        "Runtime": "nodejs8.10",
+        "Runtime": "nodejs12.x",
         "Timeout": 60,
         "Role": {
           "Fn::GetAtt": [ "IamLambdaExecutionRoleFullAccess", "Arn" ]

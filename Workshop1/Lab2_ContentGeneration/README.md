@@ -46,7 +46,7 @@ In the `Create function` page, specify:
 Field | Value
 --- | ---
 Name | `ws-lambda-at-edge-generate-card-page`
-Runtime | `Node.js 8.10`
+Runtime | `Node.js 12.x`
 Role | `Choose an existing role`
 Existing role | `ws-lambda-at-edge-read-only-<UNIQUE_ID>`
 
@@ -165,7 +165,7 @@ In the `Create function` page, specify:
 Field | Value
 --- | ---
 Name | `ws-lambda-at-edge-generate-home-page`
-Runtime | `Node.js 8.10`
+Runtime | `Node.js 12.x`
 Role | `Choose an existing role`
 Existing role | `ws-lambda-at-edge-read-only-<UNIQUE_ID>`
 

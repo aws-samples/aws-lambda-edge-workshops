@@ -61,7 +61,7 @@ In the `Create function` page, specify:
 Field | Value
 --- | ---
 Name | `ws-lambda-at-edge-customize-css`
-Runtime | `Node.js 8.10`
+Runtime | `Node.js 12.x`
 Role | `Choose an existing role`
 Existing role | `ws-lambda-at-edge-basic-<UNIQUE_ID>`
 
