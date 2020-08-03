@@ -53,7 +53,7 @@ In the `Create function` page, specify:
 Field | Value
 --- | ---
 Name | `ws-lambda-at-edge-api-like`
-Runtime | `Node.js 8.10`
+Runtime | `Node.js 12.x`
 Role | `Choose an existing role`
 Existing role | `ws-lambda-at-edge-full-access-<UNIQUE_ID>` (this role allows the function to update the DynamoDB table)
 
